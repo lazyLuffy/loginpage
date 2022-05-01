@@ -7,6 +7,7 @@ import {
 import Register from "./Register";
 import Login from './Login'
 
+
 function App() {
   return (
     <div className='app'>
@@ -15,8 +16,12 @@ function App() {
             <Route exact path={"/"}>
                 <h1>Hey I am Empty</h1>
             </Route>
-            <Route exact path={"/login"} component={Login}/>
-            <Route exact path={"/register"} component={Register}/>
+            <Route exact path={"/login"}>
+              <Login/>
+            </Route>
+            <Route exact path={"/register"}>
+              <Register/>
+            </Route>
         </Switch>
         </Router>
     </div>

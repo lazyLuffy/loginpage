@@ -28,6 +28,9 @@ export const userSlice = createSlice({
     },
     error:(state,action)=>{
       state.message=action.payload.message
+    },
+    clearMessage:(state,action)=>{
+      state.message=''
     }
     // Use the PayloadAction type to declare the contents of `action.payload`
     
@@ -37,7 +40,7 @@ export const userSlice = createSlice({
 });
 
 
-export const {register,login,logout,error } = userSlice.actions;
+export const {register,login,logout,error,clearMessage } = userSlice.actions;
 
 export function userRegister(value){
   return dispatch=>registerAPI(value).then(res=>dispatch(register(res.data))).catch(err=>dispatch(error(err.response.data)))
@@ -45,7 +48,10 @@ export function userRegister(value){
 }
 
 export function userLogin(value){
-  return dispatch=>loginApi(value).then(res=>dispatch(login(res.data))).catch(err=>dispatch(error.response.data))
+  return dispatch=>loginApi(value).then(res=>dispatch(login(res.data))).catch(err=>dispatch(error(err.response.data)))
+}
+export function clearError(){
+  return dispatch=>dispatch(clearMessage())
 }
 
 //setAuthorizationToken(res.data?.token)
