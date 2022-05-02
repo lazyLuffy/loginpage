@@ -1,0 +1,13 @@
+.home{
+    background-color: bisque;
+    height: 100vh;
+}
+.home-body{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.home-body>h1{
+    margin: auto;
+}

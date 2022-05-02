@@ -2,13 +2,15 @@ import React from 'react'
 import { Button, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
-import { clearError ,userLogin } from './features/userSlice';
+import { userLogin } from './features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import {useNavigate} from 'react-router-dom'
 
 
 function Login() {
   const {message} = useSelector(state=>state.user)
+  const navigate = useNavigate()
   const [validate,setValidate]=useState(false)
   const [emailValid,setEmailValid]= useState(false)
   const [passwordValid,setPasswordValid]= useState(false)
@@ -44,6 +46,8 @@ function Login() {
 
         if(user.email!==''||user.password!==''){
           dispatch(userLogin(user))
+          navigate('/users')
+          
         }
         
       }
@@ -57,25 +61,10 @@ function Login() {
       }
 
       useEffect(()=>{
-        if(message==="success"){
-            alert("login SuccessFull")
-            setUser({
-              
-                email: "",
-                password:"",
-            })
-
-        }
-        else if(message!=="succes" && message!==""){
-          alert(message)
-          dispatch(clearError())
-          setUser({
-              
-            email: "",
-            password:"",
+        setUser({
+          email: "",
+          password:"",
         })
-
-        }
       },[message])
 
   return (

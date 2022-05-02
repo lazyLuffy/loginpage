@@ -1,15 +1,16 @@
 // import logo from './logo.svg';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {withRouter} from "react-router-dom"
 import { Button, Form, Row } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { userRegister } from './features/userSlice';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function Register() {
   const {register_user} = useSelector(state=>state.user)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [validate,setValidate]=useState(false)
   const [passwordValid,setPasswordValid]=useState(false)
@@ -151,9 +152,12 @@ function Register() {
   <Button variant="primary" type="submit" >
     Submit
   </Button>
+  <Button  className="m-3" variant="secondary" onClick={()=>navigate('/login')}>
+    Login
+  </Button>
 </Form>
     </div>
   );
 }
 
-export default withRouter(Register)
+export default Register

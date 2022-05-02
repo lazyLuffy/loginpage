@@ -5,6 +5,8 @@ export const axiosInstance = axios.create({
 
 })
 
-export function setAuthorizationHeader(token){
+export  function setAuthorizationHeader(){
+    const token= localStorage.getItem("token")
+    console.log("token",token)
     return axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }

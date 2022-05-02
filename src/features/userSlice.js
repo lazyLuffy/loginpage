@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginApi,registerAPI } from "./manager";
-
+import {setAuthorizationHeader} from '../axios'
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
@@ -48,13 +48,20 @@ export function userRegister(value){
 }
 
 export function userLogin(value){
-  return dispatch=>loginApi(value).then(res=>dispatch(login(res.data))).catch(err=>dispatch(error(err.response.data)))
+  return dispatch=>loginApi(value).then(res=>{
+    // localStorage.setItem('token',res.data.data?.token)
+    sessionStorage.setItem("token",res.data.data?.token)
+    setAuthorizationHeader()
+    dispatch(login(res.data))
+    // console.log(res.data)
+    
+
+  }).catch(err=>dispatch(error(err.response.data)))
 }
 export function clearError(){
   return dispatch=>dispatch(clearMessage())
 }
 
-//setAuthorizationToken(res.data?.token)
 
 
 // The function below is called a selector and allows us to select a value from
